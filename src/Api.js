@@ -4,7 +4,7 @@ export default {
   user: {
     login: credentials =>
       axios
-        .post("profile/dummy/", { credentials })
+        .post("rest-auth/login/", { credentials })
         .then(response => response.data.user)
   }
 };

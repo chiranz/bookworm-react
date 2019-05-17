@@ -9,11 +9,17 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import RootReducer from "./RootReducer";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { userLoggedIn } from "./actions/Auth";
 
 const store = createStore(
   RootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+if (localStorage.bookWormToken) {
+  const user = { token: localStorage.bookWormToken };
+  store.dispatch(userLoggedIn(user));
+}
 
 ReactDOM.render(
   <BrowserRouter>
