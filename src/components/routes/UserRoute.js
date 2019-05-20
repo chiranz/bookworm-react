@@ -17,7 +17,7 @@ UserRoute.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: !!state.user.token
+  isAuthenticated: false
 });
 
 export default connect(
