@@ -12,11 +12,11 @@ export const userLoggedIn = user => ({
 
 export const login = credentials => dispatch =>
   Api.user.login(credentials).then(user => {
-    localStorage.bookWormToken = user.token;
+    localStorage.bookWormJWT = user.token;
     dispatch(userLoggedIn(user));
   });
 
 export const logout = () => dispatch => {
-  localStorage.removeItem("bookWormToken");
-  dispatch(userLoggedOut);
+  localStorage.removeItem("bookWormJWT");
+  dispatch(userLoggedOut());
 };

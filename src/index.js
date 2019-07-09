@@ -16,8 +16,8 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-if (localStorage.bookWormToken) {
-  const user = { token: localStorage.bookWormToken };
+if (localStorage.bookWormJWT) {
+  const user = { token: localStorage.bookWormJWT };
   store.dispatch(userLoggedIn(user));
 }
 
