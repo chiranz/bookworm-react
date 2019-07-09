@@ -11,7 +11,10 @@ class LoginForm extends Component {
       password: ""
     },
     loading: false,
-    errors: {}
+    errors: {
+      email: "",
+      password: ""
+    }
   };
 
   onChange = e => {
@@ -23,16 +26,19 @@ class LoginForm extends Component {
   onSubmit = () => {
     const errors = this.validate(this.state.data);
     this.setState({
-      errors: errors
+      errors: { ...errors }
     });
+    console.log(this.state);
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
-      this.props
-        .submit(this.state.data)
-        .catch(error =>
-          this.setState({ errors: error.response.data.errors, loading: false })
-        );
+      this.props.submit(this.state.data).catch(error =>
+        this.setState({
+          errors: error.response.data.errors,
+          loading: false
+        })
+      );
     }
+    console.log(this.state.errors);
   };
 
   validate = data => {

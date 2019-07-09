@@ -6,13 +6,13 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import RootReducer from "./RootReducer";
+import rootReducer from "./rootReducer";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { userLoggedIn } from "./actions/Auth";
 
 const store = createStore(
-  RootReducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
 

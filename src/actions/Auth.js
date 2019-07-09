@@ -7,7 +7,7 @@ export const userLoggedOut = () => ({
 
 export const userLoggedIn = user => ({
   type: USER_LOGGED_IN,
-  user
+  payload: user
 });
 
 export const login = credentials => dispatch =>
