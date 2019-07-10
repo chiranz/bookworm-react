@@ -9,7 +9,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./rootReducer";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { userLoggedIn } from "./actions/Auth";
+import { userLoggedIn } from "./actions/auth";
 
 const store = createStore(
   rootReducer,
@@ -24,6 +24,7 @@ if (localStorage.bookWormJWT) {
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
+      {/* Route provides history / location props  to entire Pages and can be passed down */}
       <Route component={App} />
     </Provider>
   </BrowserRouter>,

@@ -27,9 +27,11 @@ export class SignUpForm extends Component {
     this.setState({ errors: { ...this.state.errors, ...errors } });
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
-      this.props.submit(this.state.data).catch(err =>
+      const { username, password, email } = this.state.data;
+      const userdata = { username, email, password };
+      this.props.submit(userdata).catch(err =>
         this.setState({
-          errors: { ...this.state.errors, ...err.response.data },
+          errors: { ...this.state.errors, ...err.response.data.errors },
           loading: false
         })
       );
