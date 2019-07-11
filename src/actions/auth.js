@@ -1,5 +1,5 @@
 import { USER_LOGGED_IN, USER_LOGGED_OUT } from "../Types";
-import Api from "../api";
+import api from "../api";
 
 export const userLoggedOut = () => ({
   type: USER_LOGGED_OUT
@@ -11,7 +11,7 @@ export const userLoggedIn = user => ({
 });
 
 export const login = credentials => dispatch =>
-  Api.user.login(credentials).then(user => {
+  api.user.login(credentials).then(user => {
     localStorage.bookWormJWT = user.token;
     dispatch(userLoggedIn(user));
   });
@@ -20,3 +20,9 @@ export const logout = () => dispatch => {
   localStorage.removeItem("bookWormJWT");
   dispatch(userLoggedOut());
 };
+
+export const confirm = token => dispatch =>
+  api.user.confirm(token).then(user => {
+    localStorage.bookWormJWT = user.token;
+    dispatch(userLoggedIn(user));
+  });

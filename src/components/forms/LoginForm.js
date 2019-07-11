@@ -29,7 +29,6 @@ class LoginForm extends Component {
     this.setState({
       errors: { ...errors }
     });
-    console.log(this.state);
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
       this.props.submit(this.state.data).catch(error =>
@@ -41,7 +40,6 @@ class LoginForm extends Component {
         })
       );
     }
-    console.log(this.state.errors);
   };
 
   validate = data => {
