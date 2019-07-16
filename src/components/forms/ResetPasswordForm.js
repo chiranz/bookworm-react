@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { Form, Button, Message } from "semantic-ui-react";
-import PropTypes from "prop-types";
-import Validator from "validator";
 import InlineError from "../messages/InlineError";
 
-class LoginForm extends Component {
+export class ResetPasswordForm extends Component {
   state = {
     data: {
-      email: "",
-      password: ""
+      password: "",
+      password1: "",
+      token: this.props.token
     },
     loading: false,
     errors: {
-      email: "",
       password: "",
+      password1: "",
       global: ""
     }
   };
@@ -44,8 +43,9 @@ class LoginForm extends Component {
 
   validate = data => {
     const errors = {};
-    if (!Validator.isEmail(data.email)) errors.email = "Invalid Email";
     if (!data.password) errors.password = "Can't be blank";
+    if (data.password !== data.password1)
+      errors.password1 = "Password didn't match";
     return errors;
   };
   render() {
@@ -58,21 +58,8 @@ class LoginForm extends Component {
             <p>{errors.global}</p>
           </Message>
         )}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Your Email"
-            value={data.email}
-            onChange={this.onChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-
         <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">New Password</label>
           <input
             type="password"
             name="password"
@@ -83,16 +70,22 @@ class LoginForm extends Component {
           />
           {errors.password && <InlineError text={errors.password} />}
         </Form.Field>
-        {this.props.children}
-        <br />
-        <br />
-        <Button primary>Login</Button>
+        <Form.Field error={!!errors.password1}>
+          <label htmlFor="password1">Confirm Password</label>
+          <input
+            type="password"
+            name="password1"
+            id="password1"
+            placeholder="Type it again please"
+            value={data.password1}
+            onChange={this.onChange}
+          />
+          {errors.password1 && <InlineError text={errors.password1} />}
+        </Form.Field>
+        <Button primary>Reset</Button>
       </Form>
     );
   }
 }
-LoginForm.propTypes = {
-  submit: PropTypes.func.isRequired
-};
 
-export default LoginForm;
+export default ResetPasswordForm;
