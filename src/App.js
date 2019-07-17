@@ -2,17 +2,21 @@ import React from "react";
 import HomePage from "./components/pages/HomePage";
 import { Route } from "react-router-dom";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import LoginPage from "./components/pages/LoginPage";
 import SignUpPage from "./components/pages/SignUpPage";
 import ConfirmationPage from "./components/pages/ConfirmationPage";
 import ResetPasswordPage from "./components/pages/ResetPasswordPage";
 import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
 import DashboardPage from "./containers/DashboardPage";
+import NewBookPage from "./components/pages/NewBookPage";
 import UserRoute from "./components/routes/UserRoute";
 import GuestRoute from "./components/routes/GuestRoute";
+import TopNavigation from "./components/navigation/TopNavigation";
 
-const App = ({ location }) => (
+const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
+    {isAuthenticated && <TopNavigation />}
     <Route location={location} path="/" exact component={HomePage} />
     <Route
       location={location}
@@ -45,6 +49,12 @@ const App = ({ location }) => (
       exact
       component={DashboardPage}
     />
+    <UserRoute
+      location={location}
+      path="/books/new"
+      exact
+      component={NewBookPage}
+    />
   </div>
 );
 
@@ -53,4 +63,12 @@ App.propTypes = {
     pathname: PropTypes.string.isRequired
   }).isRequired
 };
-export default App;
+
+const mapStateToProps = state => ({
+  isAuthenticated: !!state.user.email
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(App);
