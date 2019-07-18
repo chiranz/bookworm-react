@@ -12,6 +12,7 @@ import rootReducer from "./rootReducer";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { userLoggedIn } from "./actions/auth";
+import setAuthorizationHeader from "./utils/setAuthorizationHeader";
 
 const store = createStore(
   rootReducer,
@@ -26,6 +27,7 @@ if (localStorage.bookWormJWT) {
     confirmed: payload.confirmed,
     username: payload.username
   };
+  setAuthorizationHeader(localStorage.bookWormJWT);
   store.dispatch(userLoggedIn(user));
 }
 
@@ -33,7 +35,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       {/* Route provides history / location props  to entire Pages and can be passed down */}
-      <Route component={App} />
+      <Route render={props => <App {...props} />} />
     </Provider>
   </BrowserRouter>,
 

@@ -61,7 +61,6 @@ export class SearchBookForm extends Component {
           search
           fluid
           placeholder="search for book by title"
-          value={this.state.query}
           onSearchChange={this.onSearchChange}
           options={this.state.options}
           loading={this.state.loading}
